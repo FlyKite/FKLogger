@@ -47,19 +47,19 @@ void fkUncaughtExceptionHandler(NSException *exception) {
 }
 
 + (id)allocWithZone:(struct _NSZone *)zone {
-    return [FKLogger sharedLogger] ;
+    return [FKLogger sharedLogger];
 }
 
 - (id)copyWithZone:(struct _NSZone *)zone {
-    return [FKLogger sharedLogger] ;
+    return [FKLogger sharedLogger];
 }
 
 - (instancetype)init {
     if (self = [super init]) {
 #if DEBUG
-        _isEnabled = YES;
+        _enabled = YES;
 #else
-        _isEnabled = NO;
+        _enabled = NO;
 #endif
         _handlers = [NSMutableSet setWithCapacity:5];
         _configuration = [[FKLoggerConfiguration alloc] init];
@@ -87,7 +87,7 @@ void fkUncaughtExceptionHandler(NSException *exception) {
            logLevel:(FKLogLevel)level
           logFormat:(NSString *)format, ... {
     
-    if (!self.isEnabled) {
+    if (!self.enabled) {
         return;
     }
     
@@ -116,7 +116,7 @@ void fkUncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)printLog:(FKLog *)log {
-    if (!self.isEnabled) {
+    if (!self.enabled) {
         return;
     }
     if (log.logLevel < self.configuration.minimumLogLevel) {

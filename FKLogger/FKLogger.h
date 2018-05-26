@@ -34,7 +34,7 @@ void fkUncaughtExceptionHandler(NSException *exception);
 /**
  Enable log output, defaults to YES(Debut)/NO(Release).
  */
-@property (assign) BOOL isEnabled;
+@property (assign) BOOL enabled;
 
 /**
  Configurations of FKLogger. (eg. minimumLogLevel)

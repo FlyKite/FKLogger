@@ -8,14 +8,19 @@
 
 #import "FKLog.h"
 
+@interface FKLog() {
+    NSString *_description;
+}
+@end
+
 @implementation FKLog
 
 + (instancetype)logWithFilename:(NSString *)fileName
                      lineNumber:(NSInteger)lineNumber
                    functionName:(NSString *)functionName
                        logLevel:(FKLogLevel)level
-                     logContent:(NSString *)logContent
-{
+                     logContent:(NSString *)logContent {
+    
     return [[FKLog alloc] initWithFileName:fileName
                                 lineNumber:lineNumber
                               functionName:functionName
@@ -37,8 +42,8 @@
                       lineNumber:(NSInteger)lineNumber
                     functionName:(NSString *)functionName
                         logLevel:(FKLogLevel)level
-                      logContent:(NSString *)logContent
-{
+                      logContent:(NSString *)logContent {
+    
     if (self = [super init]) {
         _currentDate = [NSDate date];
         _fileName = fileName;
@@ -47,12 +52,12 @@
         _logLevel = level;
         _logContent = logContent;
         [self generateLogHeader];
+        [self generateDescription];
     }
     return self;
 }
 
-- (void)generateLogHeader
-{
+- (void)generateLogHeader {
     
     // current date
     NSString *date = [[FKLog sharedDateFormatter] stringFromDate:self.currentDate];
@@ -62,8 +67,12 @@
     _logHeader = logHeader;
 }
 
+- (void)generateDescription {
+    _description = [NSString stringWithFormat:@"%@\n%@", _logHeader, _logContent];
+}
+
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@\n%@", _logHeader, _logContent];
+    return _description;
 }
 
 @end

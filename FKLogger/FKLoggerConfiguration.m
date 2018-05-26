@@ -10,8 +10,7 @@
 
 @implementation FKLoggerConfiguration
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
 #if DEBUG
         _minimumLogLevel = FKLogLevelVerbose;
